@@ -3,79 +3,653 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>وب‌سایت آرتین</title>
+    <title>آرتین | برنامه‌نویس آینده</title>
+    <meta
+      name="description"
+      content="وب‌سایت شخصی آرتین، علاقه‌مند به برنامه‌نویسی و طراحی وب"
+    />
 
     <style>
+      @import url("https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap");
+
+      :root {
+        --bg: #070916;
+        --panel: #0e1225;
+        --text: #f3f4ff;
+        --muted: #a5accb;
+        --border: #252b4b;
+        --purple: #9b5cff;
+        --blue: #22c7ff;
+        --glow: rgba(132, 67, 255, 0.18);
+      }
+
+      body.light {
+        --bg: #f5f5ff;
+        --panel: #ffffff;
+        --text: #15142b;
+        --muted: #555b78;
+        --border: #deddf2;
+        --purple: #7539dc;
+        --blue: #087eb6;
+        --glow: rgba(132, 67, 255, 0.1);
+      }
+
       * {
         box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html {
+        scroll-behavior: smooth;
+        scroll-padding-top: 85px;
       }
 
       body {
-        margin: 0;
-        font-family: Tahoma, sans-serif;
-        background: #0f172a;
-        color: white;
-        text-align: center;
+        background:
+          radial-gradient(ellipse at 85% 5%, var(--glow), transparent 35%),
+          var(--bg);
+        color: var(--text);
+        font-family: "Vazirmatn", Tahoma, sans-serif;
+        line-height: 1.9;
+        transition:
+          background 0.3s,
+          color 0.3s;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      button {
+        font: inherit;
+        cursor: pointer;
+      }
+
+      .container {
+        width: min(1100px, 90%);
+        margin: auto;
       }
 
       header {
-        padding: 25px;
-        background: #1e293b;
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        background: var(--bg);
+        border-bottom: 1px solid var(--border);
       }
 
-      header h1 {
-        color: #38bdf8;
+      nav {
+        min-height: 72px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
       }
 
-      main {
-        padding: 70px 20px;
+      .logo {
+        font-size: 25px;
+        font-weight: 800;
+        color: var(--purple);
+        white-space: nowrap;
       }
 
-      main h2 {
-        font-size: 32px;
+      .logo span {
+        color: var(--text);
       }
 
-      main p {
-        color: #cbd5e1;
-        line-height: 2;
+      .nav-links {
+        display: flex;
+        gap: 25px;
+        align-items: center;
       }
 
-      button {
-        padding: 14px 28px;
-        background: #38bdf8;
+      .nav-links a {
+        color: var(--muted);
+        font-size: 14px;
+        transition: color 0.2s;
+      }
+
+      .nav-links a:hover {
+        color: var(--blue);
+      }
+
+      .theme-btn {
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 7px 12px;
+        color: var(--text);
+        background: var(--panel);
+        white-space: nowrap;
+      }
+
+      .hero {
+        min-height: 510px;
+        display: grid;
+        grid-template-columns: 1.15fr 0.85fr;
+        align-items: center;
+        gap: 40px;
+        padding-top: 55px;
+        padding-bottom: 65px;
+      }
+
+      .eyebrow {
+        color: var(--blue);
+        font-weight: 600;
+        margin-bottom: 12px;
+      }
+
+      h1 {
+        font-size: clamp(37px, 5vw, 62px);
+        line-height: 1.4;
+        font-weight: 800;
+      }
+
+      .gradient {
+        background: linear-gradient(100deg, var(--blue), var(--purple));
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent;
+      }
+
+      .hero h2 {
+        font-size: 20px;
+        margin: 10px 0;
+      }
+
+      .description {
+        color: var(--muted);
+        max-width: 540px;
+      }
+
+      .actions {
+        display: flex;
+        gap: 13px;
+        flex-wrap: wrap;
+        margin-top: 28px;
+      }
+
+      .btn {
+        padding: 11px 21px;
+        border-radius: 12px;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        border: 1px solid var(--border);
+        transition:
+          transform 0.2s,
+          box-shadow 0.2s;
+      }
+
+      .btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 30px var(--glow);
+      }
+
+      .primary {
+        background: linear-gradient(110deg, #762bfa, #147bfa);
         border: none;
-        border-radius: 10px;
-        cursor: pointer;
-        font-size: 16px;
+        color: white;
       }
 
-      button:hover {
-        background: #0ea5e9;
+      .hero-art {
+        min-height: 310px;
+        border: 1px solid var(--border);
+        border-radius: 28px;
+        background:
+          radial-gradient(
+            circle at 50% 40%,
+            rgba(132, 67, 255, 0.25),
+            transparent 50%
+          ),
+          var(--panel);
+        display: grid;
+        place-items: center;
+        overflow: hidden;
+        position: relative;
+        box-shadow: 0 0 60px var(--glow);
+      }
+      .hero-art::before,
+      .hero-art::after {
+        content: "";
+        position: absolute;
+        width: 220px;
+        height: 220px;
+        border: 1px solid var(--purple);
+        border-radius: 50%;
+        opacity: 0.25;
+        animation: orbit 12s linear infinite;
+      }
+
+      .hero-art::after {
+        width: 290px;
+        height: 290px;
+        border-color: var(--blue);
+        animation-direction: reverse;
+      }
+
+      .code-art {
+        text-align: center;
+        z-index: 1;
+      }
+
+      .code-icon {
+        font-size: 85px;
+        line-height: 1.5;
+        color: var(--purple);
+        text-shadow: 0 0 35px var(--purple);
+        font-weight: 800;
+      }
+
+      .code-art h3 {
+        font-size: 24px;
+      }
+      .code-art p {
+        color: var(--muted);
+      }
+
+      @keyframes orbit {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      section {
+        padding: 65px 0;
+      }
+
+      .section-heading {
+        margin-bottom: 28px;
+      }
+
+      .section-heading h2 {
+        font-size: 29px;
+      }
+      .section-heading p {
+        color: var(--muted);
+      }
+
+      .about-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 25px;
+      }
+
+      .panel {
+        background: var(--panel);
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        padding: 25px;
+      }
+
+      .panel h3 {
+        margin-bottom: 12px;
+      }
+      .panel p {
+        color: var(--muted);
+      }
+
+      .facts {
+        margin-top: 18px;
+        display: grid;
+        gap: 8px;
+      }
+      .facts span {
+        color: var(--blue);
+      }
+
+      .skills {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 14px;
+      }
+
+      .skill {
+        text-align: center;
+        padding: 20px 8px;
+        background: var(--panel);
+        border: 1px solid var(--border);
+        border-radius: 15px;
+        transition:
+          transform 0.25s,
+          border-color 0.25s;
+      }
+
+      .skill:hover {
+        transform: translateY(-5px);
+        border-color: var(--purple);
+      }
+      .skill .symbol {
+        font-size: 30px;
+        color: var(--blue);
+        font-weight: 800;
+      }
+      .skill p {
+        font-size: 14px;
+      }
+
+      .projects {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 18px;
+      }
+
+      .project {
+        padding: 24px;
+        background: var(--panel);
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        transition:
+          transform 0.25s,
+          border-color 0.25s;
+      }
+
+      .project:hover {
+        transform: translateY(-5px);
+        border-color: var(--purple);
+      }
+
+      .project-icon {
+        font-size: 30px;
+      }
+      .project h3 {
+        margin: 8px 0;
+      }
+      .project p {
+        color: var(--muted);
+        font-size: 14px;
+      }
+      .project small {
+        display: inline-block;
+        color: var(--blue);
+        margin-top: 14px;
+      }
+
+      .contact-box {
+        text-align: center;
+      }
+      .contact-box p {
+        color: var(--muted);
+        margin: 10px 0 22px;
       }
 
       footer {
-        padding: 20px;
-        color: #94a3b8;
+        border-top: 1px solid var(--border);
+        padding: 22px 0;
+        color: var(--muted);
+        text-align: center;
+        font-size: 13px;
+      }
+
+      .reveal {
+        opacity: 0;
+        transform: translateY(20px);
+        transition:
+          opacity 0.6s,
+          transform 0.6s;
+      }
+
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          animation: none !important;
+          scroll-behavior: auto !important;
+          transition: none !important;
+        }
+      }
+
+      @media (max-width: 720px) {
+        nav {
+          flex-wrap: wrap;
+          padding: 12px 0;
+        }
+        .nav-links {
+          order: 3;
+          width: 100%;
+          justify-content: center;
+          gap: 15px;
+          flex-wrap: wrap;
+        }
+        .nav-links a {
+          font-size: 12px;
+        }
+        .hero {
+          grid-template-columns: 1fr;
+          gap: 28px;
+          padding-top: 38px;
+        }
+        .hero-art {
+          min-height: 240px;
+        }
+        .about-grid,
+        .projects {
+          grid-template-columns: 1fr;
+        }
+        .skills {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        section {
+          padding: 45px 0;
+        }
       }
     </style>
   </head>
 
   <body>
     <header>
-      <h1>وب‌سایت آرتین</h1>
-      <p>دنیای برنامه‌نویسی من</p>
+      <nav class="container">
+        <a class="logo" href="#home">&lt;/&gt; <span>Artin</span></a>
+
+        <div class="nav-links">
+          <a href="#home">خانه</a>
+          <a href="#about">درباره من</a>
+          <a href="#skills">مهارت‌ها</a>
+          <a href="#projects">پروژه‌ها</a>
+          <a href="#contact">تماس با من</a>
+        </div>
+        <button
+          class="theme-btn"
+          id="themeBtn"
+          type="button"
+          aria-label="تغییر تم"
+        >
+          ☀️ / 🌙
+        </button>
+      </nav>
     </header>
 
     <main>
-      <h2>به سایت من خوش آمدی!</h2>
+      <div class="container hero" id="home">
+        <div class="reveal">
+          <p class="eyebrow">👋 سلام، به دنیای من خوش اومدی</p>
+          <h1>من <span class="gradient">آرتین</span> هستم</h1>
+          <h2>برنامه‌نویس آینده و عاشق دنیای فناوری</h2>
+          <p class="description">
+            به کدنویسی، طراحی وب و ساخت پروژه‌های خلاقانه علاقه دارم. اینجا مسیر
+            یادگیری و پروژه‌هایی که می‌سازم رو باهات به اشتراک می‌ذارم.
+          </p>
+          <div class="actions">
+            <a class="btn primary" href="#projects">مشاهده پروژه‌ها ↙</a>
+            <a class="btn" href="#about">بیشتر درباره من</a>
+          </div>
+        </div>
 
-      <p>
-        من آرتین هستم و دارم برنامه‌نویسی یاد می‌گیرم. این اولین سایت من است.
-      </p>
+        <div class="hero-art reveal">
+          <div class="code-art">
+            <div class="code-icon">&lt;/&gt;</div>
+            <h3>DREAM · CODE · CREATE</h3>
+            <p>هر روز، یک قدم جلوتر 🚀</p>
+          </div>
+        </div>
+      </div>
 
-      <button onclick="alert('سلام آرتین! سایتت اجرا شد 🎉')">کلیک کن!</button>
+      <section id="about">
+        <div class="container reveal">
+          <div class="section-heading">
+            <h2>👨‍💻 درباره من</h2>
+            <p>از علاقه شروع می‌کنم، با تمرین پیش می‌رم.</p>
+          </div>
+
+          <div class="about-grid">
+            <div class="panel">
+              <h3>داستان من</h3>
+              <p>
+                من آرتین هستم و به دنیای کامپیوتر، برنامه‌نویسی و فناوری علاقه
+                دارم. در حال یادگیری پایتون و طراحی وب هستم و دوست دارم با
+                تمرین، ایده‌هام رو به پروژه‌های واقعی تبدیل کنم.
+              </p>
+            </div>
+
+            <div class="panel">
+              <h3>🎯 هدف‌های من</h3>
+              <p>
+                یادگیری اصولی، ساخت پروژه‌های کاربردی و تبدیل‌شدن به یک
+                برنامه‌نویس حرفه‌ای.
+              </p>
+              <div class="facts">
+                <p><span>▸</span> یادگیری Python</p>
+                <p><span>▸</span> طراحی سایت با HTML و CSS</p>
+                <p><span>▸</span> ساخت پروژه‌های شخصی</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="skills">
+        <div class="container reveal">
+          <div class="section-heading">
+            <h2>⚡ مهارت‌ها و ابزارها</h2>
+            <p>ابزارهایی که یاد می‌گیرم و با آن‌ها کار می‌کنم.</p>
+          </div>
+
+          <div class="skills">
+            <div class="skill">
+              <div class="symbol">5</div>
+              <p>HTML</p>
+            </div>
+            <div class="skill">
+              <div class="symbol">3</div>
+              <p>CSS</p>
+            </div>
+            <div class="skill">
+              <div class="symbol">JS</div>
+              <p>JavaScript</p>
+            </div>
+            <div class="skill">
+              <div class="symbol">Py</div>
+              <p>Python</p>
+            </div>
+            <div class="skill">
+              <div class="symbol">VS</div>
+              <p>VS Code</p>
+            </div>
+            <div class="skill">
+              <div class="symbol">Git</div>
+              <p>Git و GitHub</p>
+            </div>
+            <div class="skill">
+              <div class="symbol">UI</div>
+              <p>طراحی رابط کاربری</p>
+            </div>
+            <div class="skill">
+              <div class="symbol">⌘</div>
+              <p>حل مسئله</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="projects">
+        <div class="container reveal">
+          <div class="section-heading">
+            <h2>🚀 پروژه‌های من</h2>
+            <p>
+              نمونه‌هایی از مسیر یادگیری من؛ این کارت‌ها فعلاً معرفی پروژه
+              هستند.
+            </p>
+          </div>
+
+          <div class="projects">
+            <article class="project">
+              <div class="project-icon">🌐</div>
+              <h3>وب‌سایت شخصی</h3>
+              <p>همین سایت؛ یک صفحه برای معرفی من، مهارت‌ها و پروژه‌هایم.</p>
+              <small>HTML · CSS · JavaScript</small>
+            </article>
+
+            <article class="project">
+              <div class="project-icon">🐍</div>
+              <h3>پروژه‌های پایتون</h3>
+              <p>تمرین متغیرها، شرط‌ها، ورودی‌ها و ساخت برنامه‌های کوچک.</p>
+              <small>Python · Beginner</small>
+            </article>
+
+            <article class="project">
+              <div class="project-icon">🎮</div>
+              <h3>بازی ساده</h3>
+              <p>ایده‌ای برای ساخت یک بازی کوچک و یادگیری منطق برنامه‌نویسی.</p>
+              <small>در حال یادگیری</small>
+            </article>
+            <article class="project">
+              <div class="project-icon">✨</div>
+              <h3>پروژه بعدی من</h3>
+              <p>اینجا جای ایده بعدی منه؛ قراره با تمرین، بهش شکل بدم.</p>
+              <small>Coming Soon</small>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact">
+        <div class="container reveal">
+          <div class="panel contact-box">
+            <h2>💬 ارتباط با من</h2>
+            <p>
+              این سایت شروع مسیر منه. به‌زودی پروژه‌های بیشتری اضافه می‌کنم!
+            </p>
+            <a class="btn primary" href="#home">برگشت به بالای صفحه ↑</a>
+          </div>
+        </div>
+      </section>
     </main>
 
-    <footer>ساخته‌شده با علاقه به برنامه‌نویسی ❤️</footer>
+    <footer>
+      <div class="container">ساخته‌شده با ❤️ و کدنویسی توسط آرتین · 2026</div>
+    </footer>
+
+    <script>
+      const themeBtn = document.getElementById("themeBtn");
+
+      themeBtn.addEventListener("click", () => {
+        document.body.classList.toggle("light");
+        const light = document.body.classList.contains("light");
+        themeBtn.textContent = light ? "🌙 تم تیره" : "☀️ تم روشن";
+      });
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("visible");
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.12 },
+      );
+
+      document.querySelectorAll(".reveal").forEach((element) => {
+        observer.observe(element);
+      });
+    </script>
   </body>
 </html>
